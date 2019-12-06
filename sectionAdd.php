@@ -1,39 +1,30 @@
 <?php 
-# pour ajouter un article, post -> description, title et category
-#pour supprimer un article post -> delete qui contient l'id de l'article a supp
-require_once("bdd.php");
+    /* DataBase connection */
+    require_once('bdd.php');
 
-
-   
-    if(isset($_POST['description']) AND isset($_POST['title']) AND isset($_POST['category'])) 
-    {
-        if(strlen($_POST['title']) < 255)
-        {
-            if(is_numeric($_POST['category']) AND $_POST['category'] >= 1 AND $_POST['category'] <= 4)
-            
-            {
+    /* Section adding */
+    if(isset($_POST['description']) AND isset($_POST['title']) AND isset($_POST['category'])) {
+        if(strlen($_POST['title']) < 255) {
+            if(is_numeric($_POST['category']) AND $_POST['category'] >= 1 AND $_POST['category'] <= 4) {
                 $titre = $_POST['title'];
                 $desc = $_POST['description'];
                 $category =  $_POST['category'];
-                $stmt = $bdd->prepare("INSERT INTO sections(Title,DescS,Category,DateC) VALUES(?,?,?,CURTIME())");
+                $link = $_POST['link'];
+                $stmt = $bdd->prepare("INSERT INTO sections(Title,DescS,Category,Link,DateC) VALUES(?,?,?,?,CURTIME())");
                 $desc = nl2br($desc);       
-                $stmt->execute(array($titre, $desc, $category));  
-                echo "ok";
+                $stmt->execute(array($titre, $desc, $category, $link));  
+                $sectionAdd = array("Add"=>"Succed");
+                json_encode($sectionAdd);
             }
-            else die ("Category doit être un entier compris entre 1 et 4");
-            
-            
+            else {
+                $sectionDelete = array("Delete"=>"FailledCat");
+                json_encode($sectionDelete);
+            }
         }
-        
-        else
-        {
-            die ("Le titre ne doit pas dépasser 255 car");
+        else {
+            $sectionDelete = array("Delete"=>"FailledLength");
+            json_encode($sectionDelete);
         }
-        
-        
     }
-    
-    
-    
 ?>
     

@@ -1,12 +1,16 @@
-<?php 
-#pour supprimer un article post -> delete qui contient l'id de l'article a supp
-if(isset($_POST['delete']) AND is_numeric($_POST['delete']))
-    {
-      $req = $bdd->prepare("DELETE FROM sections WHERE id_Section= :id");
-      $req->bindParam(':id',$_POST['delete']);
-      $req->execute();
-      echo "ok";
-        
+<?php
+    /* DataBase connection */
+    require_once('bdd.php');
+
+    /* Section deleting */
+    if(isset($_POST['delete']) AND is_numeric($_POST['delete'])) {
+      $req = $bdd->prepare("DELETE FROM sections WHERE id_Section= ?");
+      $req->execute(array($_POST['id']));
+      $sectionDelete = array("Delete"=>"Succed");
+      json_encode($sectionDelete);
     }
-    
+    else {
+      $sectionDelete = array("Delete"=>"Failed");
+      json_encode($sectionDelete);
+    }
 ?>

@@ -1,10 +1,10 @@
 <?php 
-require("bdd.php");
+    /* DataBase connection */
+    require_once('bdd.php');
 
-
-    $req = $bdd->prepare("UPDATE sections SET title =:title, description = :description, category = :category WHERE id_Section = :id ");
-    $req->bindParam(":column",$_POST['Column']);
-    $req->bindParam(":value",$_POST['Value']);
-    $req->bindParam(":id",$_POST['Id']);
-    $req->execute();
-    
+    /* Section updating */
+    $req = $bdd->prepare("UPDATE sections SET Title = ?, DescS = ?, Category = ? WHERE id_Section = :id ");
+    $req->execute(array($_POST['Title'], $_POST['Desc'], $_POST['Category']));*
+    $sectionModify = array("Modify"=>"Succed");
+    json_encode($sectionModify);
+?>

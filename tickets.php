@@ -2,6 +2,7 @@
     /* DataBase connection */
     require_once('bdd.php');
 
+    /* Tickets storage */
     $LastName = htmlspecialchars($_POST['contactLastName']);
     $firstName = htmlspecialchars($_POST['contactFirstName']);
     $mail = htmlspecialchars($_POST['contactEmail']);
