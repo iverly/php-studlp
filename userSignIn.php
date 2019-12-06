@@ -12,6 +12,7 @@
         if ($userexist == 1) {
             $userinfo = $requser -> fetch();
             $_SESSION['id'] = $userinfo['id_User'];
+            $_SESSION['Perms'] = $userinfo['Perms'];
             $userRegistration = array("Connected"=>"Connected", "LastName"=>$lastName, "FirstName"=>$firstName, "Mail"=>$mailconnect, "City"=>$city, "School"=>$school, "DateB"=>$dateB);
             json_encode($userRegistration);
         }
